@@ -47,5 +47,7 @@ Student users can:
 * **Database:** MongoDB
 * **Authentication:** JWT, bcrypt
 
----
+## Deployed URL
+https://student-management-one-beryl.vercel.app
+
 
