@@ -74,7 +74,7 @@ export function SignInForm() {
     let res = await ApiSercies.post_signIn(data)
       console.log(res)
       if(res?.data){
-        console.log(res.data)
+        console.log("res from sub d",res.data)
 
         setAlert("success", `Welcome to ${res?.data?.data?.role === "Admin" ? "Admin" : "Student"} dashboard. You’re now logged in`)
         localStorage.setItem('token', res?.data?.data?.token);
@@ -82,6 +82,7 @@ export function SignInForm() {
         // localStorage.setItem('email', res?.data?.email);
         // localStorage.setItem('userid', res?.data?.userid);
         if(res?.data?.data?.role === "Admin"){
+          alert("Logged in as Admin")
           router.push("/admin");
         }
         else{

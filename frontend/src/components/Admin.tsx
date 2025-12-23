@@ -62,21 +62,26 @@ const router = useRouter()
     setCurrentPage(pageNo);
   };
 
-  useEffect(() => {
-    // read role from localStorage only on client
-    if (typeof window !== 'undefined') {
-      const r = localStorage.getItem('role')
-      setRole(r)
-    }
-  }, [])
+  // useEffect(() => {
+  //   // read role from localStorage only on client
+  //   if (typeof window !== 'undefined') {
+  //     const r = localStorage.getItem('role')
+  //     setRole(r)
+  //   }
+  // }, [])
 
   useEffect(() => {
-    if(role === "Admin"){
+    if (typeof window !== 'undefined') {
+      const r = localStorage.getItem('role')
+    if(r === "Admin"){
+      console.log("fetching students for admin")
     fetchStudents();
     }else{
+      console.log("not admin, redirecting to home")
         router.push("/");
     }
-  }, [currentPage]);
+  }
+  }, [currentPage, role]);
 
    const currentUser = "Super Admin"
 
