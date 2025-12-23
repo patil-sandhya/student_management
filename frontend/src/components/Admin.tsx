@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 
 const Admin = () => {
      const [result, setResult]= useState([])
-     const role = localStorage.getItem("role")
+     const [role, setRole] = useState<string | null>(null)
      const [currentPage, setCurrentPage] = useState(1);
   const [totalRecords, setTotalRecords] = useState(0);
 const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,15 +50,25 @@ const router = useRouter()
   }
 
   const handleLogout = () => {  
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
-    window.location.href = "/";
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
+      window.location.href = "/";
+    }
     setAlert("success", "Logged out successfully!");
   }
   
    const handlePageChange = async (pageNo : any) => {
     setCurrentPage(pageNo);
   };
+
+  useEffect(() => {
+    // read role from localStorage only on client
+    if (typeof window !== 'undefined') {
+      const r = localStorage.getItem('role')
+      setRole(r)
+    }
+  }, [])
 
   useEffect(() => {
     if(role === "Admin"){
@@ -68,7 +78,7 @@ const router = useRouter()
     }
   }, [currentPage]);
 
-   const currentUser = "Admin User"
+   const currentUser = "Super Admin"
 
   return (
     <div className="min-h-screen bg-background">
